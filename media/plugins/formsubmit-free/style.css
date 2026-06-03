@@ -1,0 +1,191 @@
+/*
+This CSS file is part of a Publii plugin. 
+It is crucial that any modifications made to this file are saved in a minimized format, 
+as the plugin uses the minimized version for optimal performance. 
+Minification reduces file size and improves load times, enhancing the user experience. 
+Please ensure to minify the file before deploying any updates.
+*/
+
+.formsubmit {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.formsubmit label {
+    display: block;
+    font-weight: bold;
+}
+.formsubmit label span.normal {
+    font-weight: 400;
+}
+
+.formsubmit .radio.inline {
+    display: inline;
+  }
+
+input[type=checkbox]+label{
+    font-size: 100%;
+    font-weight:400;
+    margin-top: 7px;
+}
+
+.formsubmit input[type="text"],
+.formsubmit input[type="email"],
+.formsubmit textarea,
+.formsubmit select {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.formsubmit input[type="file"] {
+    margin-bottom: 1.5rem;
+}
+
+.fs-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Due colonne di base */
+    gap: 1rem; /* Spazio tra i campi */
+}
+
+.fs-field[data-width="100"] {
+    grid-column: 1 / -1; /* Occupa due colonne */
+}
+
+.fs-field[data-width="50"] {
+    grid-column: span 1; /* Occupa una colonna */
+}
+
+.fs-separator {
+    line-height: 1;
+    /* border-bottom: 1px solid #e3e3e3; */
+    margin-top: 2rem;
+}
+
+/* Allineamento del pulsante nel div */
+.fs-submit {
+    display: flex;
+}
+.fs-submit[data-halign="center"]{
+    justify-content: center;
+}
+.fs-submit[data-halign="left"]{
+    justify-content: left;
+}
+.fs-submit[data-halign="right"]{
+    justify-content: right;
+}
+.fs-submit[data-valign="center"]{
+    align-items: center;
+}
+.fs-submit[data-valign="top"]{
+    align-items: start;
+}
+.fs-submit[data-valign="bottom"]{
+    align-items: end;
+}
+
+/* Nasconde il campo honeypot */
+.fs-required{
+    position: absolute !important;
+    left: -10000px !important;
+    top: auto !important;
+    width: 1px !important;
+    height: 1px !important;
+    overflow: hidden !important;
+    /* Opzionale: rende il campo trasparente per i bot che simulano lo schermo */
+    opacity: 0 !important; 
+    pointer-events: none !important;
+}
+
+/* Larghezza del pulsante */
+#submitButton[data-width="50"]{
+    width:50%;
+}
+#submitButton[data-width="100"]{
+    width:100%;
+}
+.btn{
+    justify-content: center;
+}
+
+/* Spaziatura del messaggio di risposta */
+.formsubmit #responseMessage{
+    margin-bottom: 2rem;
+}
+
+/* Breakpoint per colonna singola su dispositivi mobili */
+@media (max-width: 768px) {
+    .fs-grid {
+        grid-template-columns: 1fr; /* Una colonna */
+    }
+
+    .fs-field[data-width="50"],
+    .fs-field[data-width="100"] {
+        grid-column: 1 / -1; /* Tutti i campi occupano una colonna */
+    }
+    
+    .fs-submit[data-halign="right"]{
+        justify-content: left;
+    }
+}
+
+/* Gestione del focus sui controlli*/
+.formsubmit input:focus-visible,
+.formsubmit textarea:focus-visible,
+.formsubmit select:focus-visible {
+    outline: none !important;
+    box-shadow: none !important; /* Rimuove anche eventuali ombre blu di default */
+}
+
+/** VALIDAZIONE FORM **/
+
+:root {
+    --fs-error-main: #e74c3c;
+    --fs-error-light: rgba(231, 76, 60, 0.15);
+    --fs-error-shadow: rgba(231, 76, 60, 0.1);
+}
+
+/* --- GRUPPO: BORDO E TESTO ROSSO --- */
+.val-border .fs-field.is-invalid input:not([type="checkbox"]):not([type="radio"]),
+.val-border .fs-field.is-invalid textarea,
+.val-border .fs-field.is-invalid select {
+    border-color: var(--fs-error-main) !important;
+    box-shadow: 0 0 0 2px var(--fs-error-shadow) !important;
+}
+
+.val-border .fs-field.is-invalid input[type="checkbox"] + label:before,
+.val-border .fs-field.is-invalid input[type="radio"] + label:before {
+    border-color: var(--fs-error-main) !important;
+}
+
+.val-border .fs-field.is-invalid label,
+.val-border .fs-field.is-invalid label span {
+    color: var(--fs-error-main) !important;
+}
+
+/* --- GRUPPO: SFONDO ROSSO LIGHT --- */
+.val-bg .fs-field.is-invalid input:not([type="checkbox"]):not([type="radio"]),
+.val-bg .fs-field.is-invalid textarea,
+.val-bg .fs-field.is-invalid select,
+.val-bg .fs-field.is-invalid input[type="checkbox"] + label:before,
+.val-bg .fs-field.is-invalid input[type="radio"] + label:before {
+    background-color: var(--fs-error-light) !important;
+}
+
+/* --- GRUPPO: MESSAGGIO DI ERRORE (Sotto l'input) --- */
+.val-msg .fs-field.is-invalid {
+    position: relative;
+    padding-bottom: 1.2rem;
+}
+
+.val-msg .fs-field.is-invalid:after {
+    content: attr(data-error);
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    font-size: 11px;
+    color: var(--fs-error-main);
+    font-weight: 500;
+    line-height: 1;
+}
